@@ -9,18 +9,20 @@ const path_1 = __importDefault(require("path"));
 const app = (0, express_1.default)();
 const filePath = path_1.default.join(__dirname, "../db/todo.json");
 app.use(express_1.default.json());
-app.get('/', (req, res) => {
-    res.send('Welcome to Todo App');
+app.get("/", (req, res) => {
+    res.send("Welcome to Todo App");
 });
-app.get('/todos', (req, res) => {
+app.get("/todos/:id", (req, res) => {
     const data = fs_1.default.readFileSync(filePath, { encoding: "utf-8" });
-    console.log(data);
+    console.log("From Query", req.query);
+    console.log("From Params", req.params);
+    // console.log(data)
     res.end(data);
 });
-app.post('/todos/create-todo', (req, res) => {
+app.post("/todos/create-todo", (req, res) => {
     const { title, body } = req.body;
     console.log(title, body);
-    res.send('I am learning Express');
+    res.send("I am learning Express");
 });
 exports.default = app;
 //App file = Routing handle, Middleware, Route related error handling
